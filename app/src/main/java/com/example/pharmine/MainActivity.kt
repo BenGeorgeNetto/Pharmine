@@ -1,15 +1,21 @@
 package com.example.pharmine
 
+import android.app.Application
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.pharmine.models.medicine.MedViewModel
+import com.example.pharmine.screens.MedViewModelFactory
+import com.example.pharmine.screens.PharmineApp
 import com.example.pharmine.ui.theme.PharmineTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,16 +27,25 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    PharmineApp()
+
+                    val owner = LocalViewModelStoreOwner.current
+
+                    owner?.let {
+                        val viewModel: MedViewModel = viewModel(
+                            it,
+                            "MainViewModel",
+                            MedViewModelFactory(
+                                LocalContext.current.applicationContext
+                                        as Application
+                            )
+                        )
+
+                        PharmineApp(viewModel)
+                    }
                 }
             }
         }
     }
-}
-
-@Composable
-fun PharmineApp() {
-
 }
 
 @Preview(name = "Light", showSystemUi = true)
