@@ -9,5 +9,6 @@ sealed class NavigationItem(var route: String, var icon: ImageVector? = null, va
     object Login : NavigationItem(route = "login", title = "Login")
     object Home : NavigationItem(route = "home", icon = Icons.Outlined.Home, title = "Home")
     object Signup : NavigationItem(route = "signup", title = "Signup")
+    object Appointments: NavigationItem(route = "appointments", title = "Appointments")
 
 }

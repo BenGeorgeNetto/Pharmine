@@ -18,10 +18,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.pharmine.screens.HomeScreen
-import com.example.pharmine.screens.SignIn
-import com.example.pharmine.screens.Signup
-import com.example.pharmine.screens.SplashScreen
+import com.example.pharmine.screens.*
 import com.example.pharmine.ui.theme.PharmineTheme
 
 class MainActivity : ComponentActivity() {
@@ -61,6 +58,9 @@ fun Navigation(navController: NavHostController) {
         }
         composable(NavigationItem.Signup.route) {
             Signup(navController)
+        }
+        composable(NavigationItem.Appointments.route) {
+            Appointments(navController)
         }
     }
 
