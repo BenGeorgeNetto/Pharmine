@@ -19,13 +19,21 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.pharmine.R
+import com.example.pharmine.models.user.SignInViewModel
 import com.example.pharmine.ui.theme.PastelBlue
 import com.example.pharmine.ui.theme.PharmineTheme
 import com.example.pharmine.ui.theme.poppinsFamily
 
 @Composable
 fun SignIn() {
+    var username by remember {
+        mutableStateOf("")
+    }
+    var password by remember { mutableStateOf("") }
+    var onVarPhone = {it: String-> username = it }
+    var onVarPas = {it: String-> password = it}
     Column(
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
@@ -71,21 +79,21 @@ fun SignIn() {
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onBackground,
             )
-            EnterPhone()
+            EnterPhone(username, onVarPhone)
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = "Password",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onBackground,
             )
-            EnterPassword()
+            EnterPassword(password, onVarPas)
             Spacer(modifier = Modifier.height(24.dp))
             Row(
                 modifier = Modifier
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                SignInButton()
+                SignInButton(username, password)
                 SignUpButton()
             }
             Spacer(modifier = Modifier.height(16.dp))
@@ -101,9 +109,11 @@ fun SignIn() {
 //}
 
 @Composable
-fun SignInButton() {
+fun SignInButton(user: String, password: String) {
+    val number = user.toLong()
+    val signInViewModel: SignInViewModel = viewModel()
     TextButton(
-        onClick = { /*TODO*/ },
+        onClick = { signInViewModel.signIn(number, password) },
         colors = ButtonDefaults.buttonColors(
             containerColor = PastelBlue,
             contentColor = MaterialTheme.colorScheme.onBackground
@@ -138,13 +148,10 @@ fun SignUpButton() {
 }
 
 @Composable
-fun EnterPhone() {
-    var username by remember {
-        mutableStateOf("")
-    }
+fun EnterPhone(phone: String, onValPhone: (String)-> Unit) {
     TextField(
-        value = username,
-        onValueChange = { username = it },
+        value = phone,
+        onValueChange = onValPhone,
         colors = TextFieldDefaults.textFieldColors(
             textColor = MaterialTheme.colorScheme.inversePrimary,
             containerColor = MaterialTheme.colorScheme.tertiary,
@@ -161,12 +168,11 @@ fun EnterPhone() {
 }
 
 @Composable
-fun EnterPassword() {
-    var password by remember { mutableStateOf("") }
+fun EnterPassword(password: String, onValPass: (String)-> Unit) {
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
     TextField(
         value = password,
-        onValueChange = { password = it },
+        onValueChange = onValPass,
         colors = TextFieldDefaults.textFieldColors(
             textColor = MaterialTheme.colorScheme.inversePrimary,
             containerColor = MaterialTheme.colorScheme.tertiary,
