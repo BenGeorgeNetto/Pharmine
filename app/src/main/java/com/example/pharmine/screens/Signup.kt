@@ -20,14 +20,38 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.pharmine.NavigationItem
 import com.example.pharmine.R
+import com.example.pharmine.models.user.SIgnUpViewModel
 import com.example.pharmine.ui.theme.PastelBlue
 import com.example.pharmine.ui.theme.poppinsFamily
 
 @Composable
 fun Signup(navController: NavController) {
+    var number by remember {
+        mutableStateOf("")
+    }
+    var name by remember {
+        mutableStateOf("")
+    }
+    var age by remember {
+        mutableStateOf("")
+    }
+    var mail by remember {
+        mutableStateOf("")
+    }
+    var password by remember { mutableStateOf("") }
+    var emergencyContactName by remember {
+        mutableStateOf("")
+    }
+    var emergencyContactNumber by remember {
+        mutableStateOf("")
+    }
+    var address by remember {
+        mutableStateOf("")
+    }
     Column(
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
@@ -64,63 +88,63 @@ fun Signup(navController: NavController) {
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onBackground,
             )
-            InputName()
+            InputName(name){ name = it }
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = "Age",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onBackground,
             )
-            InputAge()
+            InputAge(age) { age = it }
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = "Phone",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onBackground,
             )
-            InputPhone()
+            InputPhone(number) { number = it }
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = "Email ID",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onBackground,
             )
-            InputMail()
+            InputMail(mail) { mail = it }
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = "Password",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onBackground,
             )
-            InputPassword()
+            InputPassword(password) { password = it }
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = "Emergency Contact Name",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onBackground,
             )
-            InputEmergencyContactName()
+            InputEmergencyContactName(emergencyContactName) { emergencyContactName = it }
             Spacer(modifier = Modifier.height(24.dp))
             Text(
                 text = "Emergency Contact Phone",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onBackground,
             )
-            InputEmergencyContactNumber()
+            InputEmergencyContactNumber(emergencyContactNumber) { emergencyContactNumber = it }
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = "Address",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onBackground,
             )
-            InputAddress()
+            InputAddress(address) { address = it }
             Spacer(modifier = Modifier.height(24.dp))
             Row(
                 modifier = Modifier
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                SignupButton()
+                SignupButton(name, age.toInt(), number.toLong(), mail, password, address, emergencyContactName, emergencyContactNumber.toLong())
                 CancelButton(navController)
             }
             Spacer(modifier = Modifier.height(16.dp))
@@ -136,9 +160,10 @@ fun Signup(navController: NavController) {
 //}
 
 @Composable
-fun SignupButton() {
+fun SignupButton(name: String, age: Int, number: Long, email: String, password: String, address: String, emergencyCoName: String, emergencyCoNumber: Long) {
+    val signUpViewModel: SIgnUpViewModel = viewModel()
     TextButton(
-        onClick = { /*TODO*/ },
+        onClick = { signUpViewModel.signUp(name, age, number, email, password, address, emergencyCoName, emergencyCoNumber) },
         colors = ButtonDefaults.buttonColors(
             containerColor = PastelBlue,
             contentColor = MaterialTheme.colorScheme.onBackground
@@ -173,13 +198,11 @@ fun CancelButton(navController: NavController) {
 }
 
 @Composable
-fun InputPhone() {
-    var username by remember {
-        mutableStateOf("")
-    }
+fun InputPhone(number: String, onValNumber: (String) -> Unit) {
+
     TextField(
-        value = username,
-        onValueChange = { username = it },
+        value = number,
+        onValueChange = onValNumber,
         colors = TextFieldDefaults.textFieldColors(
             textColor = MaterialTheme.colorScheme.inversePrimary,
             containerColor = MaterialTheme.colorScheme.tertiary,
@@ -193,13 +216,10 @@ fun InputPhone() {
 }
 
 @Composable
-fun InputName() {
-    var name by remember {
-        mutableStateOf("")
-    }
+fun InputName(name: String, onValName: (String) -> Unit) {
     TextField(
         value = name,
-        onValueChange = { name = it },
+        onValueChange = onValName,
         colors = TextFieldDefaults.textFieldColors(
             textColor = MaterialTheme.colorScheme.inversePrimary,
             containerColor = MaterialTheme.colorScheme.tertiary,
@@ -213,13 +233,10 @@ fun InputName() {
 }
 
 @Composable
-fun InputAge() {
-    var age by remember {
-        mutableStateOf("")
-    }
+fun InputAge(age: String, onValAge: (String) -> Unit) {
     TextField(
         value = age,
-        onValueChange = { age = it },
+        onValueChange = onValAge,
         colors = TextFieldDefaults.textFieldColors(
             textColor = MaterialTheme.colorScheme.inversePrimary,
             containerColor = MaterialTheme.colorScheme.tertiary,
@@ -233,13 +250,10 @@ fun InputAge() {
 }
 
 @Composable
-fun InputMail() {
-    var mail by remember {
-        mutableStateOf("")
-    }
+fun InputMail(mail: String, onValMail: (String) -> Unit) {
     TextField(
         value = mail,
-        onValueChange = { mail = it },
+        onValueChange = onValMail,
         colors = TextFieldDefaults.textFieldColors(
             textColor = MaterialTheme.colorScheme.inversePrimary,
             containerColor = MaterialTheme.colorScheme.tertiary,
@@ -253,13 +267,10 @@ fun InputMail() {
 }
 
 @Composable
-fun InputEmergencyContactName() {
-    var emergencyContactName by remember {
-        mutableStateOf("")
-    }
+fun InputEmergencyContactName(emergencyContactName: String, onValECN: (String) -> Unit) {
     TextField(
         value = emergencyContactName,
-        onValueChange = { emergencyContactName = it },
+        onValueChange = onValECN,
         colors = TextFieldDefaults.textFieldColors(
             textColor = MaterialTheme.colorScheme.inversePrimary,
             containerColor = MaterialTheme.colorScheme.tertiary,
@@ -273,13 +284,10 @@ fun InputEmergencyContactName() {
 }
 
 @Composable
-fun InputEmergencyContactNumber() {
-    var emergencyContactNumber by remember {
-        mutableStateOf("")
-    }
+fun InputEmergencyContactNumber(emergencyContactNumber: String, onValECNum: (String) -> Unit) {
     TextField(
         value = emergencyContactNumber,
-        onValueChange = { emergencyContactNumber = it },
+        onValueChange = onValECNum,
         colors = TextFieldDefaults.textFieldColors(
             textColor = MaterialTheme.colorScheme.inversePrimary,
             containerColor = MaterialTheme.colorScheme.tertiary,
@@ -293,13 +301,10 @@ fun InputEmergencyContactNumber() {
 }
 
 @Composable
-fun InputAddress() {
-    var address by remember {
-        mutableStateOf("")
-    }
+fun InputAddress(address: String, onValAddress: (String) -> Unit) {
     TextField(
         value = address,
-        onValueChange = { address = it },
+        onValueChange = onValAddress,
         colors = TextFieldDefaults.textFieldColors(
             textColor = MaterialTheme.colorScheme.inversePrimary,
             containerColor = MaterialTheme.colorScheme.tertiary,
@@ -313,12 +318,11 @@ fun InputAddress() {
 }
 
 @Composable
-fun InputPassword() {
-    var password by remember { mutableStateOf("") }
+fun InputPassword(password: String, onValPass: (String) -> Unit) {
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
     TextField(
         value = password,
-        onValueChange = { password = it },
+        onValueChange = onValPass,
         colors = TextFieldDefaults.textFieldColors(
             textColor = MaterialTheme.colorScheme.inversePrimary,
             containerColor = MaterialTheme.colorScheme.tertiary,

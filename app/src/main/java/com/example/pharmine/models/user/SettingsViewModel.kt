@@ -14,4 +14,8 @@ class SettingsViewModel(application: Application): ViewModel() {
         repository = UserRepository(userDao)
         currentUser = repository.currentUser
     }
+
+    fun logOut() {
+        repository.currentUser.value!!.onGetOut()
+    }
 }

@@ -14,12 +14,14 @@ class UserRepository(private val userDao: UserDao) {
         coroutineScope.launch(Dispatchers.IO) {
             userDao.signUp(newUser)
             currentUser.value = newUser
+            currentUser.value!!.onGetIn()
         }
     }
 
     fun signIn() {
         coroutineScope.launch(Dispatchers.IO) {
             currentUser.value = searchResults.value?.get(0)
+            currentUser.value!!.onGetIn()
         }
     }
 

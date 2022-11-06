@@ -28,19 +28,37 @@ class User {
     @ColumnInfo(name = "user_pass")
     var userPass: String = ""
 
+    @ColumnInfo(name = "emergency_contact_name")
+    var emergencyContactName: String = ""
+
+    @ColumnInfo(name = "emergency_contact_number")
+    var emergencyContactNumber: Long = 0
+
+    @ColumnInfo(name = "logged_in")
+    var logInState: Boolean = false
+
     constructor() {}
 
-    constructor(name: String, age: Int, phone: Long, email: String = "", address: String = "", password: String = "") {
+    constructor(name: String, age: Int, phone: Long, email: String = "", address: String = "", password: String = "", eCName: String, eCNumber: Long) {
         this.userName = name
         this.userAge = age
         this.userEmail = email
         this.userPhone = phone
         this.userPass = password
+        this.emergencyContactName = eCName
+        this.emergencyContactNumber = eCNumber
+
     }
 
     fun update(email: String = userEmail, address: String = userAddress)
     {
         userEmail = email
         userAddress = address
+    }
+    fun onGetIn() {
+        this.logInState = true
+    }
+    fun onGetOut() {
+        this.logInState = false
     }
 }

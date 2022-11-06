@@ -2,6 +2,7 @@
 
 package com.example.pharmine.screens
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -20,12 +21,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.pharmine.NavigationItem
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.pharmine.R
+import com.example.pharmine.models.user.SignInViewModel
 import com.example.pharmine.ui.theme.PastelBlue
 import com.example.pharmine.ui.theme.poppinsFamily
 
 @Composable
-fun SignIn(navController: NavController) {
+fun SignIn(navController: NavController){
+    var username by remember {
+        mutableStateOf("")
+    }
+    var password by remember { mutableStateOf("") }
+    var onVarPhone = {it: String-> username = it }
+    var onVarPas = {it: String-> password = it}
     Column(
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
@@ -72,21 +81,21 @@ fun SignIn(navController: NavController) {
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onBackground,
             )
-            EnterPhone()
+            EnterPhone(username, onVarPhone)
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = "Password",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onBackground,
             )
-            EnterPassword()
+            EnterPassword(password, onVarPas)
             Spacer(modifier = Modifier.height(24.dp))
             Row(
                 modifier = Modifier
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                SignInButton(navController)
+                SignInButton(username, password, navController)
                 SignUpButton(navController)
             }
             Spacer(modifier = Modifier.height(16.dp))
@@ -102,9 +111,14 @@ fun SignIn(navController: NavController) {
 //}
 
 @Composable
-fun SignInButton(navController: NavController) {
+fun SignInButton(user: String, password: String, navController: NavController) {
+    val number = user.toLong()
+    val signInViewModel: SignInViewModel = viewModel()
     TextButton(
-        onClick = { navController.navigate(NavigationItem.Home.route) },
+        onClick = {
+            signInViewModel.signIn(number, password)
+            navController.navigate(NavigationItem.Home.route)
+                  },
         colors = ButtonDefaults.buttonColors(
             containerColor = PastelBlue,
             contentColor = MaterialTheme.colorScheme.onBackground
@@ -139,13 +153,10 @@ fun SignUpButton(navController: NavController) {
 }
 
 @Composable
-fun EnterPhone() {
-    var username by remember {
-        mutableStateOf("")
-    }
+fun EnterPhone(phone: String, onValPhone: (String)-> Unit) {
     TextField(
-        value = username,
-        onValueChange = { username = it },
+        value = phone,
+        onValueChange = onValPhone,
         colors = TextFieldDefaults.textFieldColors(
             textColor = MaterialTheme.colorScheme.inversePrimary,
             containerColor = MaterialTheme.colorScheme.tertiary,
@@ -162,12 +173,11 @@ fun EnterPhone() {
 }
 
 @Composable
-fun EnterPassword() {
-    var password by remember { mutableStateOf("") }
+fun EnterPassword(password: String, onValPass: (String)-> Unit) {
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
     TextField(
         value = password,
-        onValueChange = { password = it },
+        onValueChange = onValPass,
         colors = TextFieldDefaults.textFieldColors(
             textColor = MaterialTheme.colorScheme.inversePrimary,
             containerColor = MaterialTheme.colorScheme.tertiary,
