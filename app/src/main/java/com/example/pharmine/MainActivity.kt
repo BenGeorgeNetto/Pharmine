@@ -62,6 +62,12 @@ fun Navigation(navController: NavHostController) {
         composable(NavigationItem.Appointments.route) {
             Appointments(navController)
         }
+        composable(NavigationItem.Profile.route) {
+            Profile(navController)
+        }
+        composable(NavigationItem.Orders.route) {
+            Orders()
+        }
     }
 
 }
