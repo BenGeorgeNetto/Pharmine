@@ -17,11 +17,11 @@ class SIgnUpViewModel(application: Application): ViewModel() {
         resultOfUser = repository.searchResults
     }
 
-    fun signUp(name:String, age: Int, number: Long, email: String, password: String, address: String): Boolean {
+    fun signUp(name:String, age: Int, number: Long, email: String, password: String, address: String, emergencyCoName: String, emergencyCoNumber: Long): Boolean {
         repository.getUserByNumber(number)
         if(resultOfUser.value.isNullOrEmpty())
         {
-            val newUser = User(name, age, number, email, address, password)
+            val newUser = User(name, age, number, email, address, password, emergencyCoName, emergencyCoNumber)
             repository.signUp(newUser)
             return true
         }
