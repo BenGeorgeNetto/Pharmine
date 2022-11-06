@@ -23,7 +23,7 @@ import com.example.pharmine.ui.theme.poppinsFamily
 
 
 @Composable
-fun Settings(settingsViewModel: SettingsViewModel = viewModel()) {
+fun Settings(/*settingsViewModel: SettingsViewModel = viewModel()*/) {
     Column(
         verticalArrangement = Arrangement.Center,
         modifier = Modifier

@@ -19,6 +19,9 @@ interface UserDao {
     @Query("SELECT * FROM users WHERE user_email = :email")
     fun getUser(email: String): List<User>
 
+    @Query("SELECT * FROM users WHERE logged_in = :b")
+    fun getLoggedIn(b: Boolean = true): List<User>
+
     @Query("DELETE FROM users WHERE user_email = :email")
     fun deleteUser(email: String)
 

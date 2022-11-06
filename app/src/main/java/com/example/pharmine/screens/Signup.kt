@@ -4,6 +4,7 @@
 
 package com.example.pharmine.screens
 
+import android.app.Application
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -14,19 +15,31 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.pharmine.NavigationItem
 import com.example.pharmine.R
 import com.example.pharmine.models.user.SIgnUpViewModel
+import com.example.pharmine.models.user.SignInViewModel
 import com.example.pharmine.ui.theme.PastelBlue
 import com.example.pharmine.ui.theme.poppinsFamily
+
+class SignUpViewModelFactory(val application: Application) :
+    ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return SIgnUpViewModel(application) as T
+    }
+}
 
 @Composable
 fun Signup(navController: NavController) {
@@ -144,7 +157,12 @@ fun Signup(navController: NavController) {
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                SignupButton(name, age.toInt(), number.toLong(), mail, password, address, emergencyContactName, emergencyContactNumber.toLong())
+                val owner = LocalViewModelStoreOwner.current
+
+                owner?.let {
+                    val signUpViewModel: SIgnUpViewModel = viewModel(it, "SIgnUpViewModel", SignUpViewModelFactory(
+                        LocalContext.current.applicationContext as Application))
+                    SignupButton(name, age, number, mail, password, address, emergencyContactName, emergencyContactNumber, signUpViewModel) }
                 CancelButton(navController)
             }
             Spacer(modifier = Modifier.height(16.dp))
@@ -160,10 +178,9 @@ fun Signup(navController: NavController) {
 //}
 
 @Composable
-fun SignupButton(name: String, age: Int, number: Long, email: String, password: String, address: String, emergencyCoName: String, emergencyCoNumber: Long) {
-    val signUpViewModel: SIgnUpViewModel = viewModel()
+fun SignupButton(name: String, age: String, number: String, email: String, password: String, address: String, emergencyCoName: String, emergencyCoNumber: String, signUpViewModel: SIgnUpViewModel) {
     TextButton(
-        onClick = { signUpViewModel.signUp(name, age, number, email, password, address, emergencyCoName, emergencyCoNumber) },
+        onClick = { signUpViewModel.signUp(name, age.toInt(), number.toLong(), email, password, address, emergencyCoName, emergencyCoNumber.toLong()) },
         colors = ButtonDefaults.buttonColors(
             containerColor = PastelBlue,
             contentColor = MaterialTheme.colorScheme.onBackground

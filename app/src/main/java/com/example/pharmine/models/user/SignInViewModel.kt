@@ -18,8 +18,8 @@ class SignInViewModel(application: Application): ViewModel() {
         resultOfUser = repository.searchResults
     }
 
-    fun signIn(number: Long, password: String): Boolean {
-        repository.getUserByNumber(number)
+    fun signIn(user: String, password: String): Boolean {
+        repository.getUserByNumber(user.toLong())
         if(resultOfUser.value.isNullOrEmpty() || !(resultOfUser.value!![0].userPass.equals(password)))
         {
             return false
