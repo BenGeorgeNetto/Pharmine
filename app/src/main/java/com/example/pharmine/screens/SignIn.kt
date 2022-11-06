@@ -16,18 +16,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.pharmine.NavigationItem
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.pharmine.R
 import com.example.pharmine.models.user.SignInViewModel
 import com.example.pharmine.ui.theme.PastelBlue
-import com.example.pharmine.ui.theme.PharmineTheme
 import com.example.pharmine.ui.theme.poppinsFamily
 
 @Composable
-fun SignIn() {
+fun SignIn(navController: NavController){
     var username by remember {
         mutableStateOf("")
     }
@@ -94,7 +94,7 @@ fun SignIn() {
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 SignInButton(username, password)
-                SignUpButton()
+                SignUpButton(navController)
             }
             Spacer(modifier = Modifier.height(16.dp))
         }
@@ -130,9 +130,9 @@ fun SignInButton(user: String, password: String) {
 
 
 @Composable
-fun SignUpButton() {
+fun SignUpButton(navController: NavController) {
     TextButton(
-        onClick = { /*TODO*/ },
+        onClick = { navController.navigate(NavigationItem.Signup.route) },
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.onBackground,
             contentColor = MaterialTheme.colorScheme.background
@@ -197,10 +197,10 @@ fun EnterPassword(password: String, onValPass: (String)-> Unit) {
     )
 }
 
-@Preview(showSystemUi = true, name = "SignInDark", uiMode = UI_MODE_NIGHT_YES)
-@Composable
-fun SigninPreviewDark() {
-    PharmineTheme {
-        SignIn()
-    }
-}
+//@Preview(showSystemUi = true, name = "SignInDark", uiMode = UI_MODE_NIGHT_YES)
+//@Composable
+//fun SigninPreviewDark() {
+//    PharmineTheme {
+//        SignIn()
+//    }
+//}
