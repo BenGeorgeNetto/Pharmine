@@ -2,6 +2,7 @@
 
 package com.example.pharmine.screens
 
+import android.app.Application
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -13,12 +14,16 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.navigation.NavController
 import com.example.pharmine.NavigationItem
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -27,10 +32,17 @@ import com.example.pharmine.models.user.SignInViewModel
 import com.example.pharmine.ui.theme.PastelBlue
 import com.example.pharmine.ui.theme.poppinsFamily
 
+class SignInViewModelFactory(val application: Application) :
+    ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return SignInViewModel(application) as T
+    }
+}
+
 @Composable
 fun SignIn(navController: NavController){
     var username by remember {
-        mutableStateOf("")
+        mutableStateOf("0")
     }
     var password by remember { mutableStateOf("") }
     var onVarPhone = {it: String-> username = it }
@@ -95,7 +107,17 @@ fun SignIn(navController: NavController){
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                SignInButton(username, password, navController)
+                val owner = LocalViewModelStoreOwner.current
+
+                owner?.let {
+                    val signInViewModel: SignInViewModel = viewModel(
+                        it,
+                        "SignInViewModel",
+                        SignInViewModelFactory(LocalContext.current.applicationContext as Application
+                        )
+                    )
+                SignInButton(username, password, navController, signInViewModel)
+                }
                 SignUpButton(navController)
             }
             Spacer(modifier = Modifier.height(16.dp))
@@ -111,12 +133,10 @@ fun SignIn(navController: NavController){
 //}
 
 @Composable
-fun SignInButton(user: String, password: String, navController: NavController) {
-    val number = user.toLong()
-    val signInViewModel: SignInViewModel = viewModel()
+fun SignInButton(user: String, password: String, navController: NavController, signInViewModel: SignInViewModel) {
     TextButton(
         onClick = {
-            signInViewModel.signIn(number, password)
+            signInViewModel.signIn(user, password)
             navController.navigate(NavigationItem.Home.route)
                   },
         colors = ButtonDefaults.buttonColors(

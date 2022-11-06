@@ -6,7 +6,7 @@ import kotlinx.coroutines.*
 
 class UserRepository(private val userDao: UserDao) {
 
-    val currentUser = MutableLiveData<User?>()
+    val currentUser: MutableLiveData<User?> = MutableLiveData(null)
     val searchResults = MutableLiveData<List<User>?>()
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
 
@@ -46,6 +46,12 @@ class UserRepository(private val userDao: UserDao) {
     fun getUser() {
         coroutineScope.launch(Dispatchers.IO) {
             currentUser.value = null
+        }
+    }
+
+    fun getLoggedIn() {
+        coroutineScope.launch(Dispatchers.IO) {
+            currentUser
         }
     }
 
