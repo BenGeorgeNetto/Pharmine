@@ -140,7 +140,7 @@ fun SignUpButton() {
 @Composable
 fun EnterPhone() {
     var username by remember {
-        mutableStateOf("9876543210")
+        mutableStateOf("")
     }
     TextField(
         value = username,
