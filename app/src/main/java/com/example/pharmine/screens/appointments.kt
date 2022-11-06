@@ -1,4 +1,4 @@
-package com.example.pharmine
+package com.example.pharmine.screens
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -21,6 +21,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.pharmine.R
 import com.example.pharmine.ui.theme.PastelYellow
 
 @Composable
