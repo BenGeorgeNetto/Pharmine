@@ -18,6 +18,7 @@ fun HomeScreen(navController: NavController) {
         topBar = {},
         bottomBar = { BottomNavigationBar(navController = navController) },
     ) { paddingValues ->
+
     }
 }
 
@@ -25,6 +26,8 @@ fun HomeScreen(navController: NavController) {
 fun BottomNavigationBar(navController: NavController) {
     val items = listOf(
         NavigationItem.Home,
+        NavigationItem.Appointments,
+
     )
     NavigationBar(
 //        containerColor = MaterialTheme.colorScheme.primary,
@@ -37,6 +40,10 @@ fun BottomNavigationBar(navController: NavController) {
         items.forEach { item ->
             NavigationBarItem(
                 icon = { item.icon },
+                colors = NavigationBarItemDefaults.colors(
+                    selectedIconColor = MaterialTheme.colorScheme.primary,
+                    unselectedIconColor = MaterialTheme.colorScheme.secondary
+                ),
                 label = { Text(item.title) },
                 alwaysShowLabel = true,
                 selected = currentRoute == item.route,
@@ -51,9 +58,7 @@ fun BottomNavigationBar(navController: NavController) {
                         launchSingleTop = true
                         restoreState = true
                     }
-                },
-                colors = NavigationBarItemDefaults.colors(
-                )
+                }
             )
         }
     }

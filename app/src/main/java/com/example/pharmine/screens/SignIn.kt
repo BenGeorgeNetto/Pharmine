@@ -86,7 +86,7 @@ fun SignIn(navController: NavController) {
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                SignInButton()
+                SignInButton(navController)
                 SignUpButton(navController)
             }
             Spacer(modifier = Modifier.height(16.dp))
@@ -102,9 +102,9 @@ fun SignIn(navController: NavController) {
 //}
 
 @Composable
-fun SignInButton() {
+fun SignInButton(navController: NavController) {
     TextButton(
-        onClick = { /*TODO*/ },
+        onClick = { navController.navigate(NavigationItem.Home.route) },
         colors = ButtonDefaults.buttonColors(
             containerColor = PastelBlue,
             contentColor = MaterialTheme.colorScheme.onBackground
