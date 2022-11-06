@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.pharmine.ui.theme.PastelBlue
 import com.example.pharmine.ui.theme.PastelYellow
@@ -23,7 +22,7 @@ fun Orders() {
         // top bar
 
         // search
-        SearchBar()
+//        SearchBar()
 
         Spacer(modifier = Modifier.height(24.dp))
         // go to cart button
@@ -89,8 +88,8 @@ fun OrderButton() {
 }
 
 
-@Preview(name = "Light", showSystemUi = true)
-@Composable
-fun D2Preview() {
-    Orders()
-}
+//@Preview(name = "Light", showSystemUi = true)
+//@Composable
+//fun D2Preview() {
+//    Orders()
+//}

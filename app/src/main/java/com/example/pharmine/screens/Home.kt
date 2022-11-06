@@ -2,9 +2,14 @@
 
 package com.example.pharmine.screens
 
+import android.service.autofill.OnClickAction
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Face
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -15,7 +20,7 @@ import com.example.pharmine.NavigationItem
 @Composable
 fun HomeScreen(navController: NavController) {
     Scaffold(
-        topBar = {},
+        topBar = { TopBar(title = "Home", onClick = { /*TODO*/ }, navController = navController ) },
         bottomBar = { BottomNavigationBar(navController = navController) },
     ) { paddingValues ->
 
@@ -23,10 +28,40 @@ fun HomeScreen(navController: NavController) {
 }
 
 @Composable
+fun TopBar(title: String, onClick: () -> Unit, navController: NavController) {
+    CenterAlignedTopAppBar(
+        title = {
+            Text(
+                text = title,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+        },
+        navigationIcon = {
+            IconButton(onClick = { navController.navigate(NavigationItem.Profile.route) }) {
+                Icon(
+                    imageVector = Icons.Filled.ArrowBack,
+                    contentDescription = "Back"
+                )
+            }
+        },
+        actions = {
+            IconButton(onClick = { navController.navigate(NavigationItem.Profile.route)}) {
+                Icon(
+                    imageVector = Icons.Filled.Face,
+                    contentDescription = "Profile"
+                )
+            }
+        }
+    )
+}
+
+@Composable
 fun BottomNavigationBar(navController: NavController) {
     val items = listOf(
         NavigationItem.Home,
         NavigationItem.Appointments,
+        NavigationItem.Orders
 
     )
     NavigationBar(

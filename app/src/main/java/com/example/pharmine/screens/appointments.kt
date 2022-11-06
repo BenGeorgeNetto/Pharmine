@@ -35,8 +35,6 @@ fun Appointments(navController: NavController) {
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            // search bar
-            SearchBar()
 
             // cards
             DoctorCard(
@@ -58,37 +56,37 @@ fun Appointments(navController: NavController) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun SearchBar() {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.Center
-    ) {
-        var searchQuery by remember { mutableStateOf("") }
-        TextField(
-            value = searchQuery,
-            onValueChange = { searchQuery = it },
-            placeholder = { Text(text = "Search", fontSize = 12.sp) },
-            shape = RoundedCornerShape(48.dp),
-            modifier = Modifier.height(48.dp),
-            singleLine = true,
-//            colors = TextFieldDefaults.textFieldColors(containerColor = Color(0xFFD7DDE9))
-            colors = TextFieldDefaults.textFieldColors(containerColor = LightGray),
-//            colors = TextFieldDefaults.textFieldColors(containerColor = MaterialTheme.colorScheme.tertiary)
-            trailingIcon = {IconButton(onClick = { /*TODO*/ }) {
-                Icon( imageVector = Icons.Filled.Lock, contentDescription = null )
-            }},
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Password,
-                imeAction = ImeAction.Next
-            ),
-            keyboardActions = KeyboardActions(
-                onNext = { /*TODO*/ }
-            )
-        )
-    }
-}
+//@OptIn(ExperimentalMaterial3Api::class)
+//@Composable
+//fun SearchBar() {
+//    Row(
+//        modifier = Modifier.fillMaxWidth(),
+//        horizontalArrangement = Arrangement.Center
+//    ) {
+//        var searchQuery by remember { mutableStateOf("") }
+//        TextField(
+//            value = searchQuery,
+//            onValueChange = { searchQuery = it },
+//            placeholder = { Text(text = "Search", fontSize = 12.sp) },
+//            shape = RoundedCornerShape(48.dp),
+//            modifier = Modifier.height(48.dp),
+//            singleLine = true,
+////            colors = TextFieldDefaults.textFieldColors(containerColor = Color(0xFFD7DDE9))
+//            colors = TextFieldDefaults.textFieldColors(containerColor = LightGray),
+////            colors = TextFieldDefaults.textFieldColors(containerColor = MaterialTheme.colorScheme.tertiary)
+//            trailingIcon = {IconButton(onClick = { /*TODO*/ }) {
+//                Icon( imageVector = Icons.Filled.Lock, contentDescription = null )
+//            }},
+//            keyboardOptions = KeyboardOptions(
+//                keyboardType = KeyboardType.Password,
+//                imeAction = ImeAction.Next
+//            ),
+//            keyboardActions = KeyboardActions(
+//                onNext = { /*TODO*/ }
+//            )
+//        )
+//    }
+//}
 
 @Composable
 fun DoctorCard(
