@@ -95,7 +95,7 @@ fun SignIn(navController: NavController){
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                SignInButton(username, password)
+                SignInButton(username, password, navController)
                 SignUpButton(navController)
             }
             Spacer(modifier = Modifier.height(16.dp))
@@ -111,11 +111,14 @@ fun SignIn(navController: NavController){
 //}
 
 @Composable
-fun SignInButton(user: String, password: String) {
+fun SignInButton(user: String, password: String, navController: NavController) {
     val number = user.toLong()
     val signInViewModel: SignInViewModel = viewModel()
     TextButton(
-        onClick = { signInViewModel.signIn(number, password) },
+        onClick = {
+            signInViewModel.signIn(number, password)
+            navController.navigate(NavigationItem.Home.route)
+                  },
         colors = ButtonDefaults.buttonColors(
             containerColor = PastelBlue,
             contentColor = MaterialTheme.colorScheme.onBackground

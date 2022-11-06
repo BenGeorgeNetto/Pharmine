@@ -1,6 +1,7 @@
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
+
 package com.example.pharmine.screens
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,7 +13,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -26,33 +26,36 @@ import com.example.pharmine.ui.theme.PastelYellow
 
 @Composable
 fun Appointments(navController: NavController) {
-    // top bar
 
-    Column (
-        modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        // search bar
-        SearchBar()
+    Scaffold(
+        topBar = {},
+        bottomBar = { BottomNavigationBar(navController = navController) },
+    ) { paddingValues ->
+        Column (
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            // search bar
+            SearchBar()
 
-        // cards
-        DoctorCard(
-            name = "Dr. Jincy Abraham",
-            specialization = "Orthopedica",
-            location = "Govt. Medical College, Tvm",
-            image = "",
-            time = "11:00 AM, Thursday"
-        )
-        DoctorCard(
-            name = "Dr. Anoop Menon",
-            specialization = "Diebetology",
-            location = "Govt. Medical College, Tvm",
-            image = "",
-            time = "03:00 PM, Sunday"
-        )
+            // cards
+            DoctorCard(
+                name = "Dr. Jincy Abraham",
+                specialization = "Orthopedica",
+                location = "Govt. Medical College, Tvm",
+                image = "",
+                time = "11:00 AM, Thursday"
+            )
+            DoctorCard(
+                name = "Dr. Anoop Menon",
+                specialization = "Diebetology",
+                location = "Govt. Medical College, Tvm",
+                image = "",
+                time = "03:00 PM, Sunday"
+            )
+        }
+
     }
-
-    // bottom navbar
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -100,8 +103,8 @@ fun DoctorCard(
         modifier = Modifier
             .padding(horizontal = 8.dp)
             .wrapContentHeight(),
-        shape = RoundedCornerShape(20.dp),
-        border = BorderStroke(2.dp, Color.Gray),
+        shape = RoundedCornerShape(25),
+//        border = BorderStroke(2.dp, Color.Gray),
 //         colors = CardDefaults.cardColors(containerColor = Color(0xFFFCEECB))
         colors = CardDefaults.cardColors(containerColor = PastelYellow)
 //        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
