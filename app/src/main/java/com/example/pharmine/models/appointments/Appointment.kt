@@ -25,6 +25,9 @@ class Appointment {
     @ColumnInfo(name = "apt_status")
     var aptComplete: Boolean = false
 
+    constructor()
+    {}
+
     constructor(docName: String, aptDate: String, aptStatus: Boolean = false) {
         this.docName = docName
         this.aptDate = aptDate

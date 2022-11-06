@@ -28,6 +28,8 @@ class User {
     @ColumnInfo(name = "user_pass")
     var userPass: String = ""
 
+    constructor() {}
+
     constructor(name: String, age: Int, phone: Long, email: String = "", address: String = "", password: String = "") {
         this.userName = name
         this.userAge = age
