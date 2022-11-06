@@ -13,6 +13,15 @@ class Medicine {
     @ColumnInfo(name = "med_name")
     var medName: String = ""
 
+    @ColumnInfo(name = "med_price")
+    var medPrice: Int = 0
+
+    @ColumnInfo(name = "use_description")
+    var useDescription: String = ""
+
+    @ColumnInfo(name = "med_dosage")
+    var medDosage: String = ""
+
     @ColumnInfo(name = "med_amt")
     var medAmt: Int = 0
 
@@ -24,8 +33,11 @@ class Medicine {
 
     constructor() {}
 
-    constructor(name: String, amt: Int = 0, image: String, arrival: String = "Arrived") {
+    constructor(name: String, price: Int, useDesc: String = "", dosage: String = "As per prescription.", amt: Int = 0, image: String, arrival: String = "Arrived") {
         medName = name
+        medPrice = price
+        useDescription = useDesc
+        medDosage = dosage
         medAmt = amt
         medImage = image
         medArrival = arrival

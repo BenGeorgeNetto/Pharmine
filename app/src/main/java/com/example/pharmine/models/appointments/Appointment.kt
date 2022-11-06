@@ -19,6 +19,9 @@ class Appointment {
     @ColumnInfo(name = "apt_date")
     var aptDate: String = ""
 
+    @ColumnInfo(name = "apt_time")
+    var aptTime: String = ""
+
     @ColumnInfo(name = "apt_status")
     var aptComplete: Boolean = false
 
