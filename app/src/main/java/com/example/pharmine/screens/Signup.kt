@@ -4,7 +4,6 @@
 
 package com.example.pharmine.screens
 
-import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -19,14 +18,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.pharmine.NavigationItem
 import com.example.pharmine.R
 import com.example.pharmine.ui.theme.PastelBlue
-import com.example.pharmine.ui.theme.PharmineTheme
 import com.example.pharmine.ui.theme.poppinsFamily
 
 @Composable
@@ -124,7 +121,7 @@ fun Signup(navController: NavController) {
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 SignupButton()
-                CancelButton()
+                CancelButton(navController)
             }
             Spacer(modifier = Modifier.height(16.dp))
         }
@@ -343,10 +340,10 @@ fun InputPassword() {
     )
 }
 
-@Preview(showSystemUi = true, name = "SignInDark", uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-fun SignupPreviewDark() {
-    PharmineTheme {
-        Signup()
-    }
-}
+//@Preview(showSystemUi = true, name = "SignInDark", uiMode = Configuration.UI_MODE_NIGHT_YES)
+//@Composable
+//fun SignupPreviewDark() {
+//    PharmineTheme {
+//        Signup()
+//    }
+//}
