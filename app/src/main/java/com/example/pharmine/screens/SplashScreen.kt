@@ -49,7 +49,7 @@ fun SplashScreen(navController: NavController) {
         Image(
             painter = painterResource(R.drawable.pharmine_logo),
             contentDescription = "logo",
-            modifier = Modifier.scale(scale.value)
+            modifier = Modifier.scale(scale.value),
         )
     }
 }

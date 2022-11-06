@@ -12,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -50,7 +51,8 @@ fun SignIn(navController: NavController){
                 contentDescription = "logo",
                 modifier = Modifier
                     .size(120.dp)
-                    .padding(8.dp)
+                    .padding(8.dp),
+                colorFilter = ColorFilter.tint(PastelBlue)
             )
         }
         Row(
