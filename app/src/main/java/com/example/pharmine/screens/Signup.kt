@@ -22,13 +22,15 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.pharmine.NavigationItem
 import com.example.pharmine.R
 import com.example.pharmine.ui.theme.PastelBlue
 import com.example.pharmine.ui.theme.PharmineTheme
 import com.example.pharmine.ui.theme.poppinsFamily
 
 @Composable
-fun Signup() {
+fun Signup(navController: NavController) {
     Column(
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
@@ -156,9 +158,9 @@ fun SignupButton() {
 
 
 @Composable
-fun CancelButton() {
+fun CancelButton(navController: NavController) {
     TextButton(
-        onClick = { /*TODO*/ },
+        onClick = { navController.navigate(NavigationItem.Login.route) },
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.onBackground,
             contentColor = MaterialTheme.colorScheme.background

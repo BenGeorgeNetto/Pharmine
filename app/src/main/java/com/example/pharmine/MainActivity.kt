@@ -54,13 +54,13 @@ fun Navigation(navController: NavHostController) {
             SplashScreen(navController)
         }
         composable(NavigationItem.Login.route) {
-            SignIn()
+            SignIn(navController)
         }
         composable(NavigationItem.Home.route) {
             HomeScreen(navController)
         }
         composable(NavigationItem.Signup.route) {
-            Signup()
+            Signup(navController)
         }
     }
 

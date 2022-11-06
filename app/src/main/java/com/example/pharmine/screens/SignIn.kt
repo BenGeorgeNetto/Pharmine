@@ -2,7 +2,6 @@
 
 package com.example.pharmine.screens
 
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -16,16 +15,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.pharmine.NavigationItem
 import com.example.pharmine.R
 import com.example.pharmine.ui.theme.PastelBlue
-import com.example.pharmine.ui.theme.PharmineTheme
 import com.example.pharmine.ui.theme.poppinsFamily
 
 @Composable
-fun SignIn() {
+fun SignIn(navController: NavController) {
     Column(
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
@@ -86,7 +85,7 @@ fun SignIn() {
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 SignInButton()
-                SignUpButton()
+                SignUpButton(navController)
             }
             Spacer(modifier = Modifier.height(16.dp))
         }
@@ -120,9 +119,9 @@ fun SignInButton() {
 
 
 @Composable
-fun SignUpButton() {
+fun SignUpButton(navController: NavController) {
     TextButton(
-        onClick = { /*TODO*/ },
+        onClick = { navController.navigate(NavigationItem.Signup.route) },
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.onBackground,
             contentColor = MaterialTheme.colorScheme.background
@@ -191,10 +190,10 @@ fun EnterPassword() {
     )
 }
 
-@Preview(showSystemUi = true, name = "SignInDark", uiMode = UI_MODE_NIGHT_YES)
-@Composable
-fun SigninPreviewDark() {
-    PharmineTheme {
-        SignIn()
-    }
-}
+//@Preview(showSystemUi = true, name = "SignInDark", uiMode = UI_MODE_NIGHT_YES)
+//@Composable
+//fun SigninPreviewDark() {
+//    PharmineTheme {
+//        SignIn()
+//    }
+//}
