@@ -28,6 +28,9 @@ class User {
     @ColumnInfo(name = "user_pass")
     var userPass: String = ""
 
+    @ColumnInfo(name = "logged_in")
+    var logInState: Boolean = false
+
     constructor() {}
 
     constructor(name: String, age: Int, phone: Long, email: String = "", address: String = "", password: String = "") {
@@ -42,5 +45,11 @@ class User {
     {
         userEmail = email
         userAddress = address
+    }
+    fun onGetIn() {
+        this.logInState = true
+    }
+    fun onGetOut() {
+        this.logInState = false
     }
 }
